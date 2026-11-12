@@ -1,0 +1,8 @@
+digraph G {
+ graph [rankdir=LR,bgcolor="white",pad=".4",ranksep=".8",nodesep=".4",fontname="Arial"];
+ node [fontname="Arial",fontsize=11,shape=ellipse,style="filled",color="#959890",fillcolor="#f8f8f5"];
+ edge [color="#83867c",arrowsize=.55];
+ user [shape=box,label="Foydalanuvchi",fillcolor="#e8e8e3"]; admin [shape=box,label="Ma’lumot kirituvchi",fillcolor="#e8e8e3"];
+ u1 [label="Umumiy\nko‘rsatkichlar"];u2[label="Davr va yo‘nalish\nfiltrlari"];u3[label="CSV hisoboti"];u4[label="Yo‘nalish qo‘shish"];u5[label="Transport va qatnov\nqo‘shish"];u6[label="Yo‘lovchilar sonini\nkiritish"];
+ user->u1;user->u2;user->u3;admin->u4;admin->u5;admin->u6;
+}

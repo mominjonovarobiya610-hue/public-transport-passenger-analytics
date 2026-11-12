@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName "Arial"
+actor "Foydalanuvchi" as U
+actor "Ma’lumot kirituvchi" as A
+rectangle "Yo‘lovchilarni tahlil qilish tizimi" {
+  usecase "Umumiy ko‘rsatkichlarni ko‘rish" as UC1
+  usecase "Davr va yo‘nalishni tanlash" as UC2
+  usecase "Yo‘nalishlar ro‘yxatini ko‘rish" as UC3
+  usecase "CSV hisobotini olish" as UC4
+  usecase "Yo‘nalish qo‘shish" as UC5
+  usecase "Transport va qatnov qo‘shish" as UC6
+  usecase "Yo‘lovchilar sonini kiritish" as UC7
+}
+U --> UC1
+U --> UC2
+U --> UC3
+U --> UC4
+A --> UC5
+A --> UC6
+A --> UC7
+A --|> U
+@enduml

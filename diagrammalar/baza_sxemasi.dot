@@ -1,0 +1,12 @@
+digraph G {
+ graph [rankdir=LR,bgcolor="white",pad="0.28",nodesep="0.5",ranksep="1.1",fontname="Arial",splines=polyline];
+ node [shape=plain,fontname="Arial",fontsize=10];
+ edge [color="#777a72",arrowsize=.6];
+ routes[label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#999b93"><TR><TD BGCOLOR="#eeeee9"><B>routes</B></TD></TR><TR><TD ALIGN="LEFT">id (PK) · code · name</TD></TR><TR><TD ALIGN="LEFT">origin · destination · color</TD></TR><TR><TD ALIGN="LEFT">active · created_at</TD></TR></TABLE>>];
+ stops[label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#999b93"><TR><TD BGCOLOR="#eeeee9"><B>stops</B></TD></TR><TR><TD ALIGN="LEFT">id (PK) · name · district</TD></TR></TABLE>>];
+ route_stops[label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#999b93"><TR><TD BGCOLOR="#eeeee9"><B>route_stops</B></TD></TR><TR><TD ALIGN="LEFT">route_id (PK,FK)</TD></TR><TR><TD ALIGN="LEFT">stop_id (PK,FK) · stop_order</TD></TR></TABLE>>];
+ vehicles[label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#999b93"><TR><TD BGCOLOR="#eeeee9"><B>vehicles</B></TD></TR><TR><TD ALIGN="LEFT">id (PK) · fleet_no</TD></TR><TR><TD ALIGN="LEFT">capacity · route_id (FK) · active</TD></TR></TABLE>>];
+ trips[label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#999b93"><TR><TD BGCOLOR="#eeeee9"><B>trips</B></TD></TR><TR><TD ALIGN="LEFT">id (PK) · route_id (FK)</TD></TR><TR><TD ALIGN="LEFT">vehicle_id (FK) · service_date</TD></TR><TR><TD ALIGN="LEFT">departure_time · status</TD></TR></TABLE>>];
+ counts[label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#999b93"><TR><TD BGCOLOR="#eeeee9"><B>passenger_counts</B></TD></TR><TR><TD ALIGN="LEFT">id (PK) · trip_id (FK) · stop_id (FK)</TD></TR><TR><TD ALIGN="LEFT">boarded · alighted · recorded_at</TD></TR></TABLE>>];
+ routes->route_stops; stops->route_stops;routes->vehicles;routes->trips;vehicles->trips;trips->counts;stops->counts;
+}

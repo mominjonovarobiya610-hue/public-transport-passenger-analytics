@@ -1,0 +1,10 @@
+digraph G {
+ graph [bgcolor="white",rankdir=LR,pad="0.25",nodesep="0.42",ranksep="0.62",fontname="Arial"];
+ node [shape=box,style="rounded,filled",fillcolor="#f8f8f6",color="#888a81",fontname="Arial",fontsize=12,margin="0.18,0.12"];
+ edge [color="#65695e",arrowsize=.65,fontname="Arial",fontsize=10];
+ user [label="Foydalanuvchi",shape=ellipse,fillcolor="#f0eee9"];
+ subgraph cluster_browser {label="Brauzer";style="rounded";color="#d6d6d2";fontname="Arial"; web[label="Web interfeys"]; charts[label="Grafiklar va jadvallar"];web->charts;}
+ subgraph cluster_python {label="Python WSGI dasturi";style="rounded";color="#d6d6d2";fontname="Arial";api[label="HTTP / JSON API"];trip[label="Marshrut va qatnov xizmati"];count[label="Yo‘lovchilar hisobi"];ana[label="Tahlil va CSV hisobot"];api->trip;api->count;api->ana;}
+ db [label="SQLite\nma’lumotlar bazasi",shape=cylinder,fillcolor="#eeeeeb"];
+ user->web;web->api;trip->db;count->db;ana->db;
+}

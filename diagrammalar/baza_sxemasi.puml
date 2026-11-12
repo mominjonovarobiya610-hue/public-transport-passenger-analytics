@@ -1,0 +1,62 @@
+@startuml
+hide circle
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName "Arial"
+entity "routes" as routes {
+  * id : INTEGER <<PK>>
+  --
+  code : TEXT <<UNIQUE>>
+  name : TEXT
+  origin : TEXT
+  destination : TEXT
+  color : TEXT
+  active : INTEGER
+  created_at : TEXT
+}
+entity "stops" as stops {
+  * id : INTEGER <<PK>>
+  --
+  name : TEXT <<UNIQUE>>
+  district : TEXT
+}
+entity "route_stops" as rs {
+  * route_id : INTEGER <<PK,FK>>
+  * stop_id : INTEGER <<PK,FK>>
+  --
+  stop_order : INTEGER
+}
+entity "vehicles" as vehicles {
+  * id : INTEGER <<PK>>
+  --
+  fleet_no : TEXT <<UNIQUE>>
+  capacity : INTEGER
+  route_id : INTEGER <<FK>>
+  active : INTEGER
+}
+entity "trips" as trips {
+  * id : INTEGER <<PK>>
+  --
+  route_id : INTEGER <<FK>>
+  vehicle_id : INTEGER <<FK>>
+  service_date : TEXT
+  departure_time : TEXT
+  status : TEXT
+}
+entity "passenger_counts" as counts {
+  * id : INTEGER <<PK>>
+  --
+  trip_id : INTEGER <<FK>>
+  stop_id : INTEGER <<FK>>
+  boarded : INTEGER
+  alighted : INTEGER
+  recorded_at : TEXT
+}
+routes ||--o{ rs
+stops ||--o{ rs
+routes ||--o{ vehicles
+routes ||--o{ trips
+vehicles ||--o{ trips
+trips ||--o{ counts
+stops ||--o{ counts
+@enduml

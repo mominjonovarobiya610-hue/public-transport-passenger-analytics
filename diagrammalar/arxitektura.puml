@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+skinparam monochrome true
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultFontName "Arial"
+skinparam packageStyle rectangle
+actor "Foydalanuvchi" as User
+package "Brauzer" {
+  [Web interfeys] as Web
+  [Grafiklar va jadvallar] as Charts
+}
+package "Python WSGI dasturi" {
+  [HTTP / JSON API] as API
+  [Marshrut va qatnov xizmati] as Trip
+  [Yo‘lovchilar hisobi] as Count
+  [Tahlil va CSV hisobot] as Analyze
+}
+database "SQLite ma’lumotlar bazasi" as DB
+User --> Web
+Web --> Charts
+Web --> API : HTTP so‘rovlar
+API --> Trip
+API --> Count
+API --> Analyze
+Trip --> DB
+Count --> DB
+Analyze --> DB
+@enduml
