@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#292b27">
+  <title>Yo‘lovchi oqimi — transport tahlili</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><rect x="5" y="7" width="30" height="24" rx="7" stroke="currentColor" stroke-width="2"/><path d="M10 17h20M12 26h1m14 0h1M13 31v3m14-3v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <div><strong>Yo‘lovchi oqimi</strong><small>Transport tahlil tizimi</small></div>
+      </div>
+      <p class="nav-caption">BOSHQARUV</p>
+      <nav class="nav" aria-label="Asosiy menyu">
+        <button type="button" class="nav-item active" data-page="dashboard"><span class="nav-icon">▦</span> Umumiy tahlil</button>
+        <button type="button" class="nav-item" data-page="routes"><span class="nav-icon">≡</span> Yo‘nalishlar</button>
+        <button type="button" class="nav-item" data-page="trips"><span class="nav-icon">◷</span> Qatnovlar</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="side-note"><span class="dot"></span> Namuna ma’lumotlari<br><small>O‘quv loyihasi uchun tayyorlangan</small></div>
+        <div class="author">Tayyorladi<br><strong>Mo‘minjonova Robiya</strong></div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="heading"><p class="eyebrow">JAMOAT TRANSPORTI / ANDIJON</p><h1 id="pageTitle">Umumiy tahlil</h1><p id="pageDescription">Yo‘lovchilar oqimi va qatnovlar bo‘yicha umumiy ma’lumotlar.</p></div>
+        <div class="head-actions"><span class="today"><span class="dot"></span><span id="currentDate"></span></span><button type="button" class="button button-dark" id="newEntry">+ Ma’lumot kiritish</button></div>
+      </header>
+      <section class="filters" id="filters">
+        <div class="filter-field"><label for="dateFrom">Boshlanish sanasi</label><input type="date" id="dateFrom"></div>
+        <div class="filter-field"><label for="dateTo">Tugash sanasi</label><input type="date" id="dateTo"></div>
+        <div class="filter-field filter-grow"><label for="routeFilter">Yo‘nalish</label><select id="routeFilter"><option value="">Barcha yo‘nalishlar</option></select></div>
+        <button type="button" class="button button-outline" id="applyFilter">Ko‘rsatish</button>
+        <button type="button" class="button button-outline" id="exportCsv">CSV yuklash ↓</button>
+      </section>
+      <section class="page" id="dashboardPage">
+        <div class="section-intro"><h2>Asosiy ko‘rsatkichlar</h2><span id="periodLabel">Tanlangan davr</span></div>
+        <div class="kpis">
+          <article class="kpi"><span class="kpi-label">Jami yo‘lovchilar</span><strong id="kpiPassengers">—</strong><div class="kpi-foot">Bekatlarda qayd etilgan chiqishlar</div></article>
+          <article class="kpi"><span class="kpi-label">Amalga oshgan qatnovlar</span><strong id="kpiTrips">—</strong><div class="kpi-foot">Hisob ma’lumoti mavjud qatnovlar</div></article>
+          <article class="kpi"><span class="kpi-label">O‘rtacha eng yuqori bandlik</span><strong id="kpiOccupancy">—</strong><div class="kpi-foot">Har bir qatnovning eng band nuqtasi</div></article>
+          <article class="kpi"><span class="kpi-label">Eng tig‘iz boshlanish vaqti</span><strong id="kpiPeak">—</strong><div class="kpi-foot">Chiqishlar soni bo‘yicha</div></article>
+        </div>
+        <div class="chart-grid">
+          <article class="panel big-panel"><div class="panel-header"><div><h2>Kunlik yo‘lovchi oqimi</h2><p>Har bir kunda transportga chiqqan yo‘lovchilar</p></div><span class="panel-tag">Kunlar kesimida</span></div><div class="daily-chart" id="dailyChart"></div></article>
+          <article class="panel"><div class="panel-header"><div><h2>Soatlar bo‘yicha</h2><p>Qatnov boshlanish vaqtiga qarab</p></div></div><div class="hourly-chart" id="hourlyChart"></div></article>
+        </div>
+        <div class="chart-grid bottom-grid">
+          <article class="panel"><div class="panel-header"><div><h2>Yo‘nalishlar taqqoslanishi</h2><p>Qaysi yo‘nalishda talab yuqoriroq?</p></div></div><div id="routeChart" class="route-chart"></div></article>
+          <article class="panel big-panel"><div class="panel-header"><div><h2>So‘nggi qatnovlar</h2><p>Ma’lumotlar bazasidan olingan yozuvlar</p></div><button type="button" class="text-button" data-goto="trips">Barchasini ko‘rish →</button></div><div class="table-scroll"><table><thead><tr><th>Sana</th><th>Yo‘nalish</th><th>Transport</th><th>Yo‘lovchi</th><th>Holat</th></tr></thead><tbody id="recentTable"></tbody></table></div></article>
+        </div>
+      </section>
+      <section class="page hidden" id="routesPage">
+        <div class="section-intro"><div><h2>Yo‘nalishlar ro‘yxati</h2><p>Har bir yo‘nalishning bekatlari va transportlari</p></div><div class="inline-actions"><button type="button" class="button button-outline" id="addVehicle">+ Transport</button><button type="button" class="button button-dark" id="addRoute">+ Yo‘nalish</button></div></div>
+        <div id="routeCards" class="route-cards"></div>
+      </section>
+      <section class="page hidden" id="tripsPage">
+        <div class="section-intro"><div><h2>Qatnovlar ro‘yxati</h2><p>Qatnov va bekatlar bo‘yicha yo‘lovchilar hisobini kiriting</p></div><div class="inline-actions"><button type="button" class="button button-outline" id="addCount">+ Yo‘lovchilar hisobi</button><button type="button" class="button button-dark" id="addTrip">+ Qatnov</button></div></div>
+        <div class="panel"><div class="table-scroll"><table class="trip-table"><thead><tr><th>Sana</th><th>Vaqt</th><th>Yo‘nalish</th><th>Transport</th><th>Yo‘lovchi</th><th>Holat</th></tr></thead><tbody id="allTripsTable"></tbody></table></div></div>
+      </section>
+      <footer class="footer"><span>Public Transport Passenger Analytics System</span><span>O‘quv loyihasi · 2026</span></footer>
+    </main>
+  </div>
+  <dialog id="entryDialog" aria-labelledby="dialogTitle"><div class="dialog-head"><div><span class="eyebrow">YANGI YOZUV</span><h2 id="dialogTitle">Ma’lumot kiritish</h2></div><button type="button" class="close-dialog" id="closeDialog" aria-label="Yopish">×</button></div><form id="entryForm"><div id="formFields" class="dialog-fields"></div><div class="dialog-footer"><button type="button" class="button button-outline" id="cancelDialog">Bekor qilish</button><button type="submit" class="button button-dark">Saqlash</button></div></form></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
